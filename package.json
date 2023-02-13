@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
-    "watch": "nodemon --exec electron ."
+    "watch": "nodemon --exec electron .",
+    "build:windows": "electron-builder --win --dir",
+    "dist:windows": "electron-builder --win"
   },
   "repository": {
     "type": "git",
@@ -20,6 +22,10 @@
   "homepage": "https://github.com/hoanglongne/electron-demo#readme",
   "devDependencies": {
     "electron": "^23.0.0",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "electron-builder": "^23.6.0"
+  },
+  "dependencies": {
+    
   }
 }
