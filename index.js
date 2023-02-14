@@ -1,4 +1,5 @@
-const { app, BrowserWindow, Tray } = require('electron')
+const { app, BrowserWindow, Tray, Menu } = require('electron')
+const fetch = require('electron-fetch')
 const path = require('path')
 
 let win = null;
@@ -12,13 +13,14 @@ function createWindow () {
     }
   })
   win.loadFile('index.html')
-}
+  win.webContents.openDevTools()
 
-let tray = null;
+}
 
 app.whenReady().then(() => {
   createWindow()
-  tray = new Tray('asset/Vector.png')
+
+  const tray = new Tray('public/trayIconTemplate.png')
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
       createWindow()
@@ -28,6 +30,16 @@ app.whenReady().then(() => {
 
   tray.on('click', () => {
     win.isVisible()?win.hide():win.show()
+  })
+
+  tray.on('right-click', () => {
+    const contextMenu = Menu.buildFromTemplate([
+      { label: 'Item1', type: 'radio' },
+      { label: 'Item2', type: 'radio' },
+      { label: 'Item3', type: 'radio', checked: true },
+      { label: 'Item4', type: 'radio' }
+    ])
+    tray.popUpContextMenu(contextMenu)
   })
 })
 

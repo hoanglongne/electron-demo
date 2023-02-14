@@ -7,6 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
     "watch": "nodemon --exec electron .",
+    "build:mac": "electron-builder --macos --dir",
+    "dist:mac": "electron-builder --macos",
     "build:windows": "electron-builder --win --dir",
     "dist:windows": "electron-builder --win"
   },
@@ -22,10 +24,10 @@
   "homepage": "https://github.com/hoanglongne/electron-demo#readme",
   "devDependencies": {
     "electron": "^23.0.0",
-    "nodemon": "^2.0.20",
-    "electron-builder": "^23.6.0"
+    "electron-builder": "^23.6.0",
+    "nodemon": "^2.0.20"
   },
   "dependencies": {
-    
+    "electron-fetch": "^1.9.1"
   }
 }
