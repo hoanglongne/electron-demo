@@ -8,9 +8,9 @@
 </head>
 <body>
     <h1>This is One World App</h1>
-    <p>
-        Find any thing here, chat with GPT here.
+    <p id="thing-to-display">asdasds
     </p>
+    <button id="testButton">Something</button>
     <div>
         <div class="menus">
             <div class="menu-item popup-item hidden">
@@ -33,6 +33,20 @@
 </body>
 <script>
     const toggleMenuButton = document.querySelector('.toggle-menu-button')
+
+
+
+    function doSomething() {
+        window.indexBridge.doSomethingAxios();
+    }
+
+    // let newText;
+    document.querySelector('#testButton').addEventListener('click', ()=> {
+    // newText = doSomething() doSomething()
+    doSomething()
+    })
+
+    // document.getElementById('thing-to-display')
 
     const menuItems = document.querySelectorAll('.popup-item')
 

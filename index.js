@@ -1,6 +1,7 @@
-const { app, BrowserWindow, Tray, Menu } = require('electron')
-const fetch = require('electron-fetch')
+const { app, BrowserWindow, Tray, Menu, nativeImage, ipcMain } = require('electron')
 const path = require('path')
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+const axios = require("axios");
 
 let win = null;
 
@@ -14,13 +15,13 @@ function createWindow () {
   })
   win.loadFile('index.html')
   win.webContents.openDevTools()
-
-}
+} 
 
 app.whenReady().then(() => {
   createWindow()
+  const image = nativeImage.createFromPath('public/trayIconTemplate.png')
 
-  const tray = new Tray('public/trayIconTemplate.png')
+  const tray = new Tray(image)
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
       createWindow()
@@ -42,6 +43,12 @@ app.whenReady().then(() => {
     tray.popUpContextMenu(contextMenu)
   })
 })
+
+ipcMain.handle("doSomethingAxios", async () => {
+  let response = await axios.get("https://75yz8.mocklab.io/menus");
+  response = JSON.parse(JSON.stringify(response.data))
+  return response;
+});
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {

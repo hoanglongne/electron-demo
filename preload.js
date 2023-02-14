@@ -1,10 +1,11 @@
-window.addEventListener('DOMContentLoaded', () => {
-    const replaceText = (selector, text) => {
-      const element = document.getElementById(selector)
-      if (element) element.innerText = text
-    }
-  
-    for (const type of ['chrome', 'node', 'electron']) {
-      replaceText(`${type}-version`, process.versions[type])
-    }
-  })
+const { contextBridge, ipcMain, ipcRenderer } = require('electron')
+
+  let indexBridge = {
+    doSomethingAxios: async() => {
+      const result = await ipcRenderer.invoke("doSomethingAxios");
+      const thing = document.getElementById("thing-to-display");
+      thing.innerText = result[0].name
+  },
+}
+
+contextBridge.exposeInMainWorld("indexBridge", indexBridge);
