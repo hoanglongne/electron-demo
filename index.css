@@ -1,7 +1,12 @@
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
 .toggle-menu-button {
     bottom: 0;
-    right: 0;
-    margin: 0 35px 30px 0;
+    left: 0;
+    margin: 0 0 20px 20px;
     position: fixed;
 }
 
@@ -36,8 +41,8 @@
 .menus {
     position: fixed;
     bottom: 60px;
-    right: 0;
-    margin: 0 35px 20px 0;
+    left: 0;
+    margin: 0 0 15px 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -50,3 +55,117 @@
     position: relative;  
 }
 
+.main-container {
+    height: 100vh;
+    width: 100vw;
+    justify-content: space-evenly;
+}
+
+.left-sidebar {
+    background-color: #38404D;
+    height: 100%;
+    width: 25%;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    gap:5px;
+    min-width: 120px;
+}
+
+.chatbox-container {
+    position: absolute;
+    height: 100%;
+    width: 75%;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.chatbox-message {
+    position: relative;
+    min-height: 80%;
+    flex-grow: 2;
+    width: 100%;
+    background-color: #f0f6ff;
+}
+.chatbox-input {
+    position: relative;
+    height: 20%;
+    width: 100%;
+    max-height: 150px;
+    background-color: #8392aa;
+}
+
+.chat-head-container {
+    height: 15%;
+    width: 100%;
+    max-height: 100px;
+    min-height: 70px;
+    background-color: #404a58;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.avatar-container {
+    overflow: clip;
+    height: 40px;
+    width: 40px;
+    border-radius: 40px;
+    margin-left: 50px;
+    border:#637085 solid 2px;
+    margin: 0;
+    position: relative;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    margin-left: 20px;
+    min-width: 40px;
+}
+
+.avatar-container img {
+    object-fit: scale-down;
+    width: 40px;
+    height: 40px;
+}
+
+.text-container {
+    margin: 0;
+    position: relative;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: center;
+    padding-right: 5px;
+}
+
+.text-container h5{
+    color: #f0f6ff;
+    margin:0;
+    font-weight: 400;
+}
+.text-container p{
+    color: #94a6c2;
+    margin:0;
+    font-size: 12px;
+    font-weight: 300;
+}
+
+.username-container {
+    width: 100%;
+    background-color: #d6e1f1;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.username {
+    margin: 0;
+    font-weight: 400;
+    font-size: 20px;
+}

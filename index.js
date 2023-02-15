@@ -1,20 +1,45 @@
-const { app, BrowserWindow, Tray, Menu, nativeImage, ipcMain } = require('electron')
+const { app, BrowserWindow, Tray, Menu, nativeImage, ipcMain, MenuItem } = require('electron')
 const path = require('path')
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const axios = require("axios");
 
 let win = null;
+let apiPasteWin = null;
+
+
+let contextMenu = Menu.buildFromTemplate([
+  { label: 'About', id: 'About', type: 'submenu', submenu: []},
+  { label: 'Settings', 
+  type: 'normal', 
+  click: () => {
+    apiPasteWin.show()
+  } 
+},
+])
 
 function createWindow () {
   win = new BrowserWindow({
-    width: 800,
+    width: 1000,
+    minWidth:800,
     height: 600,
+    minHeight:400,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
     }
   })
   win.loadFile('index.html')
-  win.webContents.openDevTools()
+
+  apiPasteWin = new BrowserWindow({
+    width:300,
+    height: 150,
+    parent: win,
+    frame: true,
+    show: false,
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js')
+    }
+  })
+
+  apiPasteWin.loadFile('apiPasteModal.html')
 } 
 
 app.whenReady().then(() => {
@@ -32,22 +57,31 @@ app.whenReady().then(() => {
   tray.on('click', () => {
     win.isVisible()?win.hide():win.show()
   })
-
+  
   tray.on('right-click', () => {
-    const contextMenu = Menu.buildFromTemplate([
-      { label: 'Item1', type: 'radio' },
-      { label: 'Item2', type: 'radio' },
-      { label: 'Item3', type: 'radio', checked: true },
-      { label: 'Item4', type: 'radio' }
-    ])
     tray.popUpContextMenu(contextMenu)
   })
 })
 
-ipcMain.handle("doSomethingAxios", async () => {
-  let response = await axios.get("https://75yz8.mocklab.io/menus");
+ipcMain.on("sendingURL", async(event, value) => {
+  let response = await axios.get(value);
   response = JSON.parse(JSON.stringify(response.data))
-  return response;
+  // win.webContents.send("getDataBack", response)
+
+  // response.forEach((value) => {
+  //   contextMenu.append(new MenuItem({label:value.name, submenu:value?.children?.name}))
+  // })
+
+  function handleSingleChat () {
+    win.webContents.send("getDataBack", response)
+  }
+
+  contextMenu.append(new MenuItem({label: "Chat", type:"submenu", submenu: [{ label: "Single Chat", click: handleSingleChat }, { label: "Group Chat" }]}))
+  contextMenu.append(new MenuItem({label: "Profile"}))
+  // let MyItemElm = contextMenu.getMenuItemById("About");
+  // MyItemElm.submenu.insert(0, new MenuItem({label:"Name"}));  
+  // console.log(MyItemElm)
+  apiPasteWin.hide()
 });
 
 app.on('window-all-closed', () => {
