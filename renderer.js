@@ -12,7 +12,6 @@ toggleMenuButton.addEventListener('click', ()=> {
 
 window.indexBridge.getDataBack((_event, values)=>{
 const thing = document.getElementById("placetopass");
-
 globValues = values
 
 values.forEach((value)=> {
@@ -22,14 +21,16 @@ values.forEach((value)=> {
             <img src=${value.avatar} alt="">
         </div>
         <div class="text-container">
-            <h5>${value.username}</h5>
+            <div>
+                <h5>${value.username}</h5>
+                <span>${value.message[0].timestamp.slice(0,5)}</span>
+            </div>
             <p>${value.message[0].content}</p>
         </div>
     </div>`
 
     thing.insertAdjacentHTML('afterend',html)
 })
-thing.remove()
 })
 
 // document.querySelectorAll('.chat-head-container').forEach((conv) => {
@@ -46,7 +47,6 @@ document.addEventListener("click", function(e){
     if(target){
         const convID = target.getAttribute('data-conv')
         const result = globValues.find(user => user.convID === convID);
-        
         username.innerText = result.username
     }
 

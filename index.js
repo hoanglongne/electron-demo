@@ -18,10 +18,10 @@ let contextMenu = Menu.buildFromTemplate([
 
 function createWindow () {
   win = new BrowserWindow({
-    width: 1000,
-    minWidth:800,
+    width: 400,
     height: 600,
-    minHeight:400,
+    resizable: false,
+    fullscreenable: true,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
     }
