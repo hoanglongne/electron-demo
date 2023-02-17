@@ -92,12 +92,50 @@ body {
     background-color: #ffffff;
 }
 
-.chatbox-input {
+.chatbox-input-container {
     position: relative;
-    height: 20%;
+    height: 10%;
     width: 100%;
     max-height: 150px;
-    background-color: #8392aa;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.chatbox-input {
+    background-color: #eceff1;
+    height: 60%;
+    width: 90%;
+    border-radius: 5px;
+    border: 0.12px solid #c9c9c9;
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 7px
+}
+
+.chatbox-input svg {
+    cursor: pointer;
+}
+
+.chatbox-input.attachment {
+    width: 20px;
+    padding-left: 5px;
+}
+.chatbox {
+    height: 88%;
+    width: 87%;
+    border: none;
+    background-color: #eceff1;
+    outline: none;
+    padding: 0 10px;
+}
+
+.right-function-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }
 
 .chat-head-container {
@@ -113,8 +151,8 @@ body {
 
 .avatar-container {
     overflow: clip;
-    height: 50px;
-    width: 50px;
+    height: 45px;
+    width: 45px;
     border-radius: 40px;
     margin-left: 50px;
     margin: 0;
@@ -125,12 +163,28 @@ body {
     transform: translateY(-50%);
     margin-left: 20px;
     min-width: 40px;
+    flex-shrink: 0;
+}
+
+.chatbox-avatar-container {
+    height: 40px;
+    width: 40px;
+    overflow: clip;
+    border-radius: 40px;
+    margin-left: 15px;
+}
+
+.chatbox-avatar-container img {
+    height: 40px;
+    width: 40px;
+    object-fit: cover;
+    border-bottom: 0.12px solid #c9c9c9;
 }
 
 .avatar-container img {
     object-fit:cover;
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
 }
 
 .text-container {
@@ -177,14 +231,15 @@ body {
     background-color: #eceff1;
     height: 60px;
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     border-bottom: 0.12px solid #c9c9c9;
 }
 .username {
     margin: 0;
     font-weight: 600;
-    font-size: 20px;
+    font-size: 18px;
+    padding-left: 10px;
     color: #485e81;
 }
 
@@ -193,7 +248,9 @@ body {
     justify-content: center;
     align-items: center;
     gap: 10px;
-    padding: 20px 0 10px 0;
+    padding: 20px 0 20px 0;
+    margin-bottom: -10px;
+    border-bottom: #e6e6e6 solid 0.7px;
 }
 
 
@@ -216,8 +273,4 @@ body {
         width: 100%;
         gap: 0;
     }
-}
-
-.chat-head-container:first-of-type {
-    border: 0.18px solid #a7a7a7;
 }
